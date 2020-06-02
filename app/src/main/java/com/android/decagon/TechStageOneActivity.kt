@@ -19,10 +19,16 @@ class TechStageOneActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userViewModel = this?.let { ViewModelProvider(it).get(UserViewModel::class.java) }
+
         getUsernames()
+
     }
 
 
+    //Readme1 answer
+    //get names based on highest number of submission count
+    //get names based on highest comment count
+    //get names based on recorded date
     private fun getUsernames() {
         if (isNetworkAvailable()) {
             userViewModel?.getUsers(page = 0)
@@ -71,26 +77,8 @@ class TechStageOneActivity : AppCompatActivity() {
     }
 
 
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            this?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
-    }
-
-
-    private fun getDateTime(time: String): String? {
-        try {
-            val format = SimpleDateFormat("MM/dd/yyyy")
-            val date = Date(time.toLong() * 1000)
-            return format.format(date)
-        } catch (e: Exception) {
-            return e.toString()
-        }
-    }
-
-
-    //
+    //Readme2 answer
+    // returning the maximum number of pair of socks that Anna can take on the trip with the given conditions.
     fun solutionForAnna(noOfWashes: Int, cleanPile: IntArray, dirtyPile: IntArray): Int {
         // write your code in Kotlin
         var noOfWashes = noOfWashes
@@ -130,4 +118,25 @@ class TechStageOneActivity : AppCompatActivity() {
         return res
 
     }
+
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            this?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
+
+    private fun getDateTime(time: String): String? {
+        try {
+            val format = SimpleDateFormat("MM/dd/yyyy")
+            val date = Date(time.toLong() * 1000)
+            return format.format(date)
+        } catch (e: Exception) {
+            return e.toString()
+        }
+    }
+
+
 }
