@@ -4,15 +4,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.android.decagon.ViewModels.UserViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.min
 
 class TechStageOneActivity : AppCompatActivity() {
 
@@ -89,5 +87,47 @@ class TechStageOneActivity : AppCompatActivity() {
         } catch (e: Exception) {
             return e.toString()
         }
+    }
+
+
+    //
+    fun solutionForAnna(noOfWashes: Int, cleanPile: IntArray, dirtyPile: IntArray): Int {
+        // write your code in Kotlin
+        var noOfWashes = noOfWashes
+        var res = 0
+        var clean = IntArray(50)
+        var dirty = IntArray(50)
+
+        for (c in cleanPile) {
+            clean[c]++
+        }
+
+        for (d in dirtyPile) {
+            dirty[d]++
+        }
+
+        var x = 1
+        while (x < 51) {
+            res += clean[x] / 2
+            if (clean[x] % 2 != 0 && dirty[x] > 0) {
+                res++
+                noOfWashes--
+                dirty[x]--
+            }
+            x++
+        }
+
+        var y = 1
+        while (y < 51) {
+            if (dirty[y] >= 2) {
+                dirty[y] = min(dirty[y], noOfWashes / 2)
+                res += dirty[y]
+                noOfWashes -= 2 * dirty[y]
+            }
+            y++
+        }
+
+        return res
+
     }
 }
